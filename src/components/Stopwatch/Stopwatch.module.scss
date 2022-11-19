@@ -62,7 +62,13 @@ $color-darkred: rgb(92, 32, 32);
   border: 3px solid $color-darkred;
 }
 
+.btnWrapperReset{
+  border: 3px solid $color-darkgrey;
+}
 
+.btnWrapper:hover{
+  transform: scale(1.05);
+}
 
 .btn{
   width: 75px;
@@ -80,4 +86,9 @@ $color-darkred: rgb(92, 32, 32);
 .btnStop{
   background-color: $color-darkred;
   color: rgb(197, 60, 29);
+}
+
+.btnReset{
+  background-color: $color-darkgrey;
+  color: $color-white;
 }

@@ -47,6 +47,15 @@ class Stopwatch extends Component {
 
   timerId = setInterval(this.startTime, 10);
 
+  resetTime = () => {
+    this.setState({ 
+      milliseconds: 0, 
+      seconds: 0, 
+      minutes: 0
+    })
+  }
+
+
   render() {
     return (
       <div className={styles.stopwatchPhoneWrapper}>
@@ -59,7 +68,9 @@ class Stopwatch extends Component {
           {(this.state.milliseconds <= 9) ? '0' + this.state.milliseconds : this.state.milliseconds}
         </p>
         <div className={styles.btnBlock}>
-
+          <div className={`${styles.btnWrapper} ${styles.btnWrapperReset}`}>
+            <button className = {`${styles.btn} ${styles.btnReset}`} onClick={this.resetTime}>Сброс</button>
+          </div>
           <div className={`${styles.btnWrapper} ${styles.btnWrapperStart}`}>
             <button className = {`${styles.btn} ${styles.btnStart}`} onClick={this.handleStartStop}>Старт</button>
           </div>

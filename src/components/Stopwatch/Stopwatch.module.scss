@@ -3,13 +3,20 @@ $color-black: black;
 $color-liteblack: rgb(28, 26, 26);
 $color-darkgreen: rgb(12, 49, 12);
 $color-darkgrey: rgb(54, 52, 52);
-$color-darkred: rgb(92, 32, 32);
+$color-darkred: rgba(86, 13, 13, 0.828);
+%jc-space-between{
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 .stopwatchPhoneWrapper{
   position: relative;
   width: 400px;
   height: 770px;
   margin: 0 auto;
+  padding: 0 25px;
   border: 15px solid $color-black;
   border-radius: 50px;
   background-color: $color-liteblack;
@@ -18,7 +25,7 @@ $color-darkred: rgb(92, 32, 32);
 .stopwatchPhoneBrow{
   width: 200px;
   height: 20px;
-  margin: -2px auto 180px;
+  margin: -1px auto 150px;
   border-radius: 0px 0px 25px 25px ;
   background-color: $color-black;
 }
@@ -32,7 +39,7 @@ $color-darkred: rgb(92, 32, 32);
 }
 
 .stopwatchTime{
-  padding-bottom: 100px;
+  padding-bottom: 75px;
   text-align: center;
   font-size: 75px;
   font-weight: 300;
@@ -40,9 +47,9 @@ $color-darkred: rgb(92, 32, 32);
 }
 
 .btnBlock{
-  display: flex;
-  justify-content: space-between;
-  padding: 0 25px;
+  @extend %jc-space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid $color-darkgrey;
 }
 
 .btnWrapper{
@@ -85,10 +92,23 @@ $color-darkred: rgb(92, 32, 32);
 
 .btnStop{
   background-color: $color-darkred;
-  color: rgb(197, 60, 29);
+  color: rgb(245, 53, 10);
 }
 
 .btnReset{
   background-color: $color-darkgrey;
   color: $color-white;
+}
+
+.circlesList{
+  width: 100%;
+  height: 280px;
+  overflow: scroll;
+}
+
+.circlesListItems{
+  @extend %jc-space-between;
+  color: $color-white;
+  padding: 8px 0px;
+  border-bottom: 1px solid $color-darkgrey;
 }

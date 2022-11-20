@@ -24,6 +24,8 @@ class Stopwatch extends Component {
     milliseconds: 0,
     seconds: 0,
     minutes: 0,
+    circles: [],
+    isCircle: false,
   }
 
   handleStartStop = () => {
@@ -51,12 +53,53 @@ class Stopwatch extends Component {
     this.setState({ 
       milliseconds: 0, 
       seconds: 0, 
-      minutes: 0
+      minutes: 0,
+      circles: [],
     })
   }
 
+  circleTime = () => {
+    const newCircle = this.state.circles;
+    newCircle.unshift({
+      id: this.state.circles.length + 1,
+      milliseconds: this.state.milliseconds <= 9 ? `0${this.state.milliseconds}` : this.state.milliseconds, 
+      seconds: this.state.seconds <= 9 ? `0${this.state.seconds}` : this.state.seconds,
+      minutes: this.state.minutes <=9 ? `0${this.state.minutes}` : this.state.minutes,
+    })
+  }
 
   render() {
+    const { isStart, circles } = this.state;
+    // Стили кнопок старт/стоп
+    const btnStartStop = {
+      backgroundColor: isStart === true ? 'rgb(86, 13, 13, 0.828)' : 'rgb(12, 49, 12)',
+      color: isStart === true ? 'rgb(245, 53, 10)' : 'rgb(29, 197, 29)',
+    }
+
+    const btnStartStopCircle = {
+      border: isStart === true ? '3px solid rgb(86, 13, 13, 0.828)' : '3px solid rgb(12, 49, 12)',
+    }
+
+    // Стили кнопок круг/сброс
+    // const btnCircleReset = {
+    //   border: isStart === true ? '3px solid rgb(86, 13, 13, 0.828)' : '3px solid rgb(12, 49, 12)',
+    // }
+
+    const nameBtnStartStop = isStart === true ? 'Стоп' : 'Старт';
+    const nameBtnCircleReset = isStart === true ? 'Круг' : 'Сброс';
+
+    //Отрисовка листа
+    const circlesList = circles.map(({id, milliseconds, seconds, minutes}) => (
+      <li className={styles.circlesListItems} id = {id}>
+        <p>
+        Круг {id}
+        </p>
+        <p>
+          {minutes}:{seconds},{milliseconds}
+        </p>
+      </li>
+    ));
+
     return (
       <div className={styles.stopwatchPhoneWrapper}>
         <div className={styles.stopwatchPhoneBrow}>
@@ -69,12 +112,15 @@ class Stopwatch extends Component {
         </p>
         <div className={styles.btnBlock}>
           <div className={`${styles.btnWrapper} ${styles.btnWrapperReset}`}>
-            <button className = {`${styles.btn} ${styles.btnReset}`} onClick={this.resetTime}>Сброс</button>
+            <button className = {`${styles.btn} ${styles.btnReset}`} onClick={this.circleTime}>{nameBtnCircleReset}</button>
           </div>
-          <div className={`${styles.btnWrapper} ${styles.btnWrapperStart}`}>
-            <button className = {`${styles.btn} ${styles.btnStart}`} onClick={this.handleStartStop}>Старт</button>
+          <div style={btnStartStopCircle} className={styles.btnWrapper}>
+            <button style={btnStartStop} className = {styles.btn} onClick={this.handleStartStop}>{nameBtnStartStop}</button>
           </div>
         </div>
+        <ul className={styles.circlesList}>
+          {circlesList}
+        </ul>
       </div>
     );
   }

@@ -1,0 +1,55 @@
+@import '../Stopwatch.module.scss';
+
+.btnBlock{
+  @extend %jc-space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid $color-darkgrey;
+  display: flex;
+}
+
+.btn{
+  position: relative;
+  width: 75px;
+  height: 75px;
+  font-size: 1rem;
+  border: 3px solid $color-liteblack;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.btnReset{
+  background-color: $color-darkgrey;
+  color: $color-white;
+}
+
+.btnStart{
+  background-color: $color-darkgreen;
+  color: rgb(29, 197, 29);
+}
+
+.btnStop{
+  background-color: $color-darkred;
+  color: rgb(245, 53, 10);
+}
+
+.btnStart::before, .btnStop::before, .btnReset::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.btnStart::before{
+  border: 3px solid $color-darkgreen;
+}
+
+.btnStop::before{
+  border: 3px solid $color-darkred;
+}
+
+.btnReset::before{
+  border: 3px solid $color-darkgrey;
+}

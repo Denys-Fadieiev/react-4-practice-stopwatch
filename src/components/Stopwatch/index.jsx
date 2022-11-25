@@ -15,26 +15,29 @@
 // Frontend God level:
 // разделить компонент Stopwatch на умные  глупые компоненты для умешьшения его размеров. Глупым компонентам передавать данные для отрисовки через пропсы
 // Перейти от записи чисел к записи и отображаению реальных дат. При этом необходимо будет поменять логику добавления секунд и лоигку отрисовки дат, так как реакт не будет отображать обьекты, а будет кидаться ошбками. Отобразить даты в виде часы : минуты : секунды
+
 import React, { Component } from 'react';
 import styles from './Stopwatch.module.scss';
+import CircleTime from './CircleTime';
+import Btn from './Btn';
+import { padNumber } from './utilits';
 
 class Stopwatch extends Component {
   state = {
-    isStart: false,
+    isStarted: false,
     milliseconds: 0,
     seconds: 0,
     minutes: 0,
     circles: [],
-    isCircle: false,
   }
 
   handleStartStop = () => {
-    this.setState({isStart: !this.state.isStart})
+    this.setState({isStarted: !this.state.isStarted})
   }
 
   startTime = () => {
-    const {isStart, milliseconds, seconds, minutes} = this.state;
-    if(isStart === true){
+    const {isStarted, milliseconds, seconds, minutes} = this.state;
+    if(isStarted === true){
       if (milliseconds === 99) {
         this.setState({ milliseconds: 0, seconds: seconds + 1})
       } else {
@@ -47,7 +50,13 @@ class Stopwatch extends Component {
     }
   }
 
-  timerId = setInterval(this.startTime, 10);
+  componentDidMount() {
+  this.timerId = setInterval(this.startTime, 10);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
 
   resetTime = () => {
     this.setState({ 
@@ -59,68 +68,44 @@ class Stopwatch extends Component {
   }
 
   circleTime = () => {
-    const newCircle = this.state.circles;
-    newCircle.unshift({
+    const {circles, milliseconds, seconds, minutes} = this.state;
+    const clone = JSON.parse(JSON.stringify(circles));
+    
+    clone.unshift({
       id: this.state.circles.length + 1,
-      milliseconds: this.state.milliseconds <= 9 ? `0${this.state.milliseconds}` : this.state.milliseconds, 
-      seconds: this.state.seconds <= 9 ? `0${this.state.seconds}` : this.state.seconds,
-      minutes: this.state.minutes <=9 ? `0${this.state.minutes}` : this.state.minutes,
+      milliseconds: padNumber(milliseconds, milliseconds <=9), 
+      seconds: padNumber(seconds, seconds <=9),
+      minutes: padNumber(minutes, minutes <=9)
+    })
+
+    this.setState({
+      circles: clone,
     })
   }
 
   render() {
-    const { isStart, circles } = this.state;
-    // Стили кнопок старт/стоп
-    const btnStartStop = {
-      backgroundColor: isStart === true ? 'rgb(86, 13, 13, 0.828)' : 'rgb(12, 49, 12)',
-      color: isStart === true ? 'rgb(245, 53, 10)' : 'rgb(29, 197, 29)',
-    }
-
-    const btnStartStopCircle = {
-      border: isStart === true ? '3px solid rgb(86, 13, 13, 0.828)' : '3px solid rgb(12, 49, 12)',
-    }
-
-    // Стили кнопок круг/сброс
-    // const btnCircleReset = {
-    //   border: isStart === true ? '3px solid rgb(86, 13, 13, 0.828)' : '3px solid rgb(12, 49, 12)',
-    // }
-
-    const nameBtnStartStop = isStart === true ? 'Стоп' : 'Старт';
-    const nameBtnCircleReset = isStart === true ? 'Круг' : 'Сброс';
-
-    //Отрисовка листа
-    const circlesList = circles.map(({id, milliseconds, seconds, minutes}) => (
-      <li className={styles.circlesListItems} id = {id}>
-        <p>
-        Круг {id}
-        </p>
-        <p>
-          {minutes}:{seconds},{milliseconds}
-        </p>
-      </li>
-    ));
+    const { isStarted, circles, milliseconds, seconds, minutes } = this.state;
 
     return (
       <div className={styles.stopwatchPhoneWrapper}>
         <div className={styles.stopwatchPhoneBrow}>
           <div className={styles.stopwatchPhoneBrowStrip}></div>
         </div>
+
         <p className={styles.stopwatchTime}>
-          {(this.state.minutes <= 9) ? '0' + this.state.minutes : this.state.minutes}:
-          {(this.state.seconds <= 9) ? '0' + this.state.seconds : this.state.seconds}, 
-          {(this.state.milliseconds <= 9) ? '0' + this.state.milliseconds : this.state.milliseconds}
+          {padNumber(minutes, minutes <= 9)}:
+          {padNumber(seconds, seconds <= 9)}, 
+          {padNumber(milliseconds, milliseconds <= 9)}
         </p>
-        <div className={styles.btnBlock}>
-          <div className={`${styles.btnWrapper} ${styles.btnWrapperReset}`}>
-            <button className = {`${styles.btn} ${styles.btnReset}`} onClick={this.circleTime}>{nameBtnCircleReset}</button>
-          </div>
-          <div style={btnStartStopCircle} className={styles.btnWrapper}>
-            <button style={btnStartStop} className = {styles.btn} onClick={this.handleStartStop}>{nameBtnStartStop}</button>
-          </div>
-        </div>
-        <ul className={styles.circlesList}>
-          {circlesList}
-        </ul>
+
+        <Btn 
+        isStarted = {isStarted}
+        circleTime = {this.circleTime}
+        resetTime = {this.resetTime}
+        handleStartStop = {this.handleStartStop}/>
+
+        <CircleTime
+        circles = {circles}/>
       </div>
     );
   }

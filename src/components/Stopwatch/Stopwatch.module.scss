@@ -4,12 +4,11 @@ $color-liteblack: rgb(28, 26, 26);
 $color-darkgreen: rgb(12, 49, 12);
 $color-darkgrey: rgb(54, 52, 52);
 $color-darkred: rgba(86, 13, 13, 0.828);
+
 %jc-space-between{
   display: flex;
   justify-content: space-between;
 }
-
-
 
 .stopwatchPhoneWrapper{
   position: relative;
@@ -20,7 +19,32 @@ $color-darkred: rgba(86, 13, 13, 0.828);
   border: 15px solid $color-black;
   border-radius: 50px;
   background-color: $color-liteblack;
+  font-size: 0;
 }
+
+// .stopwatchPhoneWrapper ::before{
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 25%;
+//   width: 200px;
+//   height: 20px;
+//   border-radius: 0px 0px 25px 25px ;
+//   background-color: $color-black;
+// }
+
+// .stopwatchPhoneWrapper ::after{
+//   content: '';
+//   position: absolute;
+//   top: 7px;
+//   left: 170px;
+//   width: 50px;
+//   height: 5px;
+//   margin: 0 auto;
+//   border-radius: 5px;
+//   background-color: $color-liteblack;
+// }
+
 
 .stopwatchPhoneBrow{
   width: 200px;
@@ -39,76 +63,10 @@ $color-darkred: rgba(86, 13, 13, 0.828);
 }
 
 .stopwatchTime{
+  margin-top: 150px;
   padding-bottom: 75px;
   text-align: center;
   font-size: 75px;
   font-weight: 300;
   color: $color-white;
-}
-
-.btnBlock{
-  @extend %jc-space-between;
-  padding-bottom: 15px;
-  border-bottom: 1px solid $color-darkgrey;
-}
-
-.btnWrapper{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  border-radius: 50% 
-}
-
-.btnWrapperStart{
-  border: 3px solid $color-darkgreen;
-}
-
-.btnWrapperStop{
-  border: 3px solid $color-darkred;
-}
-
-.btnWrapperReset{
-  border: 3px solid $color-darkgrey;
-}
-
-.btnWrapper:hover{
-  transform: scale(1.05);
-}
-
-.btn{
-  width: 75px;
-  height: 75px;
-  border: 3px solid $color-liteblack;
-  border-radius: 50%;
-  text-align: center;
-}
-
-.btnStart{
-  background-color: $color-darkgreen;
-  color: rgb(29, 197, 29);
-}
-
-.btnStop{
-  background-color: $color-darkred;
-  color: rgb(245, 53, 10);
-}
-
-.btnReset{
-  background-color: $color-darkgrey;
-  color: $color-white;
-}
-
-.circlesList{
-  width: 100%;
-  height: 280px;
-  overflow: scroll;
-}
-
-.circlesListItems{
-  @extend %jc-space-between;
-  color: $color-white;
-  padding: 8px 0px;
-  border-bottom: 1px solid $color-darkgrey;
 }

@@ -14,7 +14,7 @@ $color-darkred: rgba(86, 13, 13, 0.828);
   position: relative;
   width: 400px;
   height: 770px;
-  margin: 0 auto;
+  margin: 80px auto 0;
   padding: 0 25px;
   border: 15px solid $color-black;
   border-radius: 50px;
@@ -22,7 +22,7 @@ $color-darkred: rgba(86, 13, 13, 0.828);
   font-size: 0;
 }
 
-// .stopwatchPhoneWrapper ::before{
+// .stopwatchPhoneWrapper::before{
 //   content: '';
 //   position: absolute;
 //   top: 0;
@@ -33,7 +33,7 @@ $color-darkred: rgba(86, 13, 13, 0.828);
 //   background-color: $color-black;
 // }
 
-// .stopwatchPhoneWrapper ::after{
+// .stopwatchPhoneWrapper::after{
 //   content: '';
 //   position: absolute;
 //   top: 7px;
